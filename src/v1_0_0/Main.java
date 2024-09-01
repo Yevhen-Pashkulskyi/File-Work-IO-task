@@ -1,3 +1,5 @@
+package v1_0_0;
+
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
