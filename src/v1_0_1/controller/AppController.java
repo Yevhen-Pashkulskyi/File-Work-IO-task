@@ -1,5 +1,7 @@
 package v1_0_1.controller;
 
+import v1_0_1.exception.ValidData;
+import v1_0_1.exception.custom.NumberException;
 import v1_0_1.service.create.FileCreateService;
 import v1_0_1.service.read.FileReadService;
 import v1_0_1.service.write.FileWriteService;
@@ -13,15 +15,22 @@ import java.io.IOException;
 public class AppController {
     FileCreateService fileCreateService;
     InputData inputData;
+    ValidData validData;
 
     public void run() {
         fileCreateService = new FileCreateService();
         new ShowMenu().showMenu();
         inputData = new InputData();
+        validData = new ValidData();
         int choice;
         try {
-            choice = choiceMenu(Integer.parseInt(inputData.input()));
+            choice = Integer.parseInt(inputData.input());
+            choiceMenu(choice);
+        } catch (NumberFormatException e) {
+            System.out.println(e.getMessage() + "\n");
+            run();
         }
+
     }
 
     private void choiceMenu(int choice) {
