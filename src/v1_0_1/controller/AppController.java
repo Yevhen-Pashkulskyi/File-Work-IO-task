@@ -18,7 +18,10 @@ public class AppController {
         fileCreateService = new FileCreateService();
         new ShowMenu().showMenu();
         inputData = new InputData();
-        choiceMenu(Integer.parseInt(inputData.input()));
+        int choice;
+        try {
+            choice = choiceMenu(Integer.parseInt(inputData.input()));
+        }
     }
 
     private void choiceMenu(int choice) {
