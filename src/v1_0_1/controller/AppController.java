@@ -1,8 +1,11 @@
 package v1_0_1.controller;
 
 import v1_0_1.service.create.FileCreateService;
+import v1_0_1.service.read.FileReadService;
+import v1_0_1.service.write.FileWriteService;
 import v1_0_1.utils.Constants;
 import v1_0_1.utils.InputData;
+import v1_0_1.utils.OutputData;
 import v1_0_1.view.ShowMenu;
 
 import java.io.IOException;
@@ -34,7 +37,7 @@ public class AppController {
                     System.out.println("Input name file: ");
                     if (fileCreateService.createFile(inputData.input())) {
                         System.out.println("Created file successfully.");
-                    }else {
+                    } else {
                         System.out.println("File already exists.\n");
                     }
                 } catch (IOException e) {
@@ -42,6 +45,21 @@ public class AppController {
                 }
                 run();
                 break;
+            case 3:
+                FileWriteService fileWriteService = new FileWriteService();
+                System.out.println("Input name file: ");
+                String fileName = inputData.input() + ".txt";
+                System.out.println("Input content file: ");
+                new OutputData().outputData(
+                        fileWriteService.writeFile(fileName, inputData.input()));
+                run();
+                break;
+            case 4:
+                FileReadService fileReadService = new FileReadService();
+                System.out.println("Input name file: ");
+                new OutputData().outputData(
+                        fileReadService.readFile(inputData.input() + ".txt"));
+                run();
             case 0:
                 break;
         }

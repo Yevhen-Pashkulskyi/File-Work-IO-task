@@ -10,8 +10,8 @@ public class FileWriteService {
         try (FileOutputStream fOut = new FileOutputStream(Constants.PATH_SAVE_FILE + fileName)) {
             byte[] contentBytes = content.getBytes();
             fOut.write(contentBytes);
-        }catch (IOException e) {
-           return e.getMessage();
+        } catch (IOException e) {
+            return e.getMessage();
         }
         return "Success";
     }
