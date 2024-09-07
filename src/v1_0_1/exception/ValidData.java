@@ -1,12 +1,12 @@
 package v1_0_1.exception;
 
 import v1_0_1.exception.custom.NumberException;
+import v1_0_1.utils.Constants;
 
 public class ValidData {
-    private final String INPUT_REGEX_NUMBER = "^[0-9]*[.,]?[0-9]$";
 
     public String validInNumber(String input) {
-        if (input.matches(INPUT_REGEX_NUMBER)) {
+        if (input.matches(Constants.INPUT_REGEX_NUMBER)) {
             return input;
         }
         throw new NumberException("Invalid number " + input);
