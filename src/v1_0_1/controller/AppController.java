@@ -1,7 +1,7 @@
 package v1_0_1.controller;
 
-import v1_0_1.exception.ValidData;
-import v1_0_1.exception.custom.NumberException;
+import v1_0_1.exception.handler.HandlerData;
+import v1_0_1.exception.validate.ValidData;
 import v1_0_1.service.create.FileCreateService;
 import v1_0_1.service.read.FileReadService;
 import v1_0_1.service.write.FileWriteService;
@@ -16,21 +16,22 @@ public class AppController {
     FileCreateService fileCreateService;
     InputData inputData;
     ValidData validData;
+    HandlerData handleData;
 
     public void run() {
         fileCreateService = new FileCreateService();
         new ShowMenu().showMenu();
         inputData = new InputData();
         validData = new ValidData();
+        handleData = new HandlerData();
         int choice;
         try {
             choice = Integer.parseInt(inputData.input());
             choiceMenu(choice);
-        } catch (NumberFormatException e) {
-            System.out.println(e.getMessage() + "\n");
+        } catch (NullPointerException | NumberFormatException e) {
+            System.out.println("\n" + e.getMessage() + "\n");
             run();
         }
-
     }
 
     private void choiceMenu(int choice) {
@@ -47,13 +48,16 @@ public class AppController {
             case 2:
                 try {
                     System.out.println("Input name file: ");
-                    if (fileCreateService.createFile(inputData.input())) {
+                    if (fileCreateService.createFile
+                            (handleData.handleString
+                                    (inputData.input()))
+                    ) {
                         System.out.println("Created file successfully.");
                     } else {
                         System.out.println("File already exists.\n");
                     }
-                } catch (IOException e) {
-                    System.out.print(e.getMessage());
+                } catch (IOException | NullPointerException | IllegalArgumentException e) {
+                    System.out.print(e.getMessage() + "\n");
                 }
                 run();
                 break;
@@ -74,6 +78,8 @@ public class AppController {
                 run();
             case 0:
                 break;
+//            default:
+//                throw new IllegalStateException("Unexpected value: " + choice);
         }
 
     }
